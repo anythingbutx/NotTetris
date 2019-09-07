@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+    <head>
+        <title>Start Page</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <style>
+            body { 
+                background-image: url("background.jpg"); 
+                background-repeat: no-repeat;
+                background-position: center;
+                background-attachment: fixed;
+            }
+            table, th, td {
+                font-size: 110%;
+                border: 2px solid black;
+                border-collapse: collapse;
+            }
+            th{
+                background-color: #273746;
+                color: white;
+            }
+            th, td {
+                padding: 20px;
+                text-align: left;
+            }
+            tr:hover {
+                background-color: #F8F9F9;
+            }
+        </style>
+    </head>
+
+    <body>
+        <nav>
+            <center>
+                <a href="index.html">Game</a> &nbsp; 
+                <a href="ScoreBoard.html">Score Board</a>
+            </center>
+        </nav>
+        <header><h1 style="text-shadow: 1px 1px #D9D5D4;font-family:sans-serif;font-size:32px;text-align:center;">Top Not-Tetris Scores</h1></header>
+        <table align="center">
+            <thead>
+                <tr>
+                    <th>Rank</th>
+                    <th>Name</th>
+                    <th>Score</th>
+                </tr>
+            </thead>
+            <tbody id="table">
+            </tbody>
+        </table>
+        <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+        <script>
+            $(document).ready(function () {
+                $.ajax({
+                    url: 'webresources/scores',
+                    type: 'get',
+                    dataType: 'json',
+                    success: function (score) {
+                        $.each(score, function (i, item) {
+                            var tableRow = '<tr>' +
+                                    '<td>' + (i + 1) + '</td>' +
+                                    '<td>' + item.name + '</td>' +
+                                    '<td>' + item.score + '</td>' +
+                                    '</tr>';
+                            $('#table').append(tableRow);
+                        });
+                    },
+                    error: function () {
+                        alert('Something went wrong...');
+                    }
+                });
+            });
+        </script>
+    </body>
+</html>
